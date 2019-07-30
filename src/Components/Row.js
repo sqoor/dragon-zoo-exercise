@@ -30,11 +30,13 @@ export default class Table extends Component {
               <input
                 className="btn btn-primary btn-block pl-0"
                 type="button"
-                value="Update Location"
+                value="Update Location" onClick={this.props.changeLocation()}
               />
             </form>
           </td>
         </tr>
+
+        {/* {this.props.changeLocation(this.data.id, 9, 9)} */}
       </>
     );
   }

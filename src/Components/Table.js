@@ -4,6 +4,7 @@ import "./Table.css";
 
 export default class Table extends Component {
   state = {
+    test: "",
     tableData: [
       {
         id: 1,
@@ -36,6 +37,15 @@ export default class Table extends Component {
     ]
   };
 
+  changeLocation(id, section, room) {
+    // this.setState({
+    //   test: `S:${section}-R:${room}`
+    // });
+
+    // console.log("this", this);
+    // console.log("section", section, "room", room);
+  }
+
   render() {
     return (
       <>
@@ -51,10 +61,15 @@ export default class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.tableData.map(element => 
-                (<Row key={element.id} info={element}/>)
-            )}
+            {this.state.tableData.map(element => (
+              <Row
+                key={element.id}
+                info={element}
+                changeLocation={this.changeLocation}
+              />
+            ))}
 
+            {/* {console.log(this.changeLocation)} */}
             {/* <Row key={this.state.id} info={this.state.tableData} /> */}
           </tbody>
         </table>
