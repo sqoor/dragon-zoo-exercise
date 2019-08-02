@@ -4,7 +4,9 @@ import "./Table.css";
 export default class Row extends Component {
   state = {
     section: undefined,
-    room: undefined
+    room: undefined,
+    sectionInput: undefined,
+    roomInput: undefined
   };
 
   data = this.props.info;
@@ -17,13 +19,25 @@ export default class Row extends Component {
     this.setState({ section: e.target.value });
   };
 
+  restState = () => {
+    this.setState({ room: undefined, section: undefined });
+    this.sectionInput.value = '';
+    this.roomInput.value = '';
+  }
+
+  isPositiveNumber(field) {
+    return field > 0
+  }
+
   changeLocation = () => {
-    var id = this.props.info.id
-    var section = this.state.section
-    var room = this.state.room;
-    
-    if(section && room) 
+    var id = this.props.info.id;
+    var section = Math.trunc(this.state.section * 1);
+    var room = Math.trunc(this.state.room * 1);
+
+    if(section > 0 && room > 0) 
       this.props.changeLocation(id, section, room);
+
+    this.restState();
   };
 
   render() {
@@ -42,6 +56,7 @@ export default class Row extends Component {
                   className="form-control col-6"
                   type="text"
                   placeholder="Section"
+                  ref={elem => this.sectionInput = elem}
                   value={this.setState.section}
                   onChange={this.updateSectionValue}
                 />
@@ -49,6 +64,7 @@ export default class Row extends Component {
                   className="form-control col-6"
                   type="text"
                   placeholder="Room"
+                  ref={elem => this.roomInput = elem}
                   value={this.setState.room}
                   onChange={this.updateRoomValue}
                 />
