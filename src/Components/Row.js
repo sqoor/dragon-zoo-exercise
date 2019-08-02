@@ -21,12 +21,30 @@ export default class Row extends Component {
 
   restState = () => {
     this.setState({ room: undefined, section: undefined });
-    this.sectionInput.value = '';
-    this.roomInput.value = '';
+    this.sectionInput.value = "";
+    this.roomInput.value = "";
+  };
+
+  addError(field) {
+      field.classList.add("is-invalid");
+
+      setTimeout(() => {
+        field.classList.remove("is-invalid")
+      }, 4000);
   }
 
-  isPositiveNumber(field) {
-    return field > 0
+  removeError(field) {
+    field.classList.remove("is-invalid")
+  }
+
+  isValid(field) {
+    if (field.value > 0) {
+      this.removeError(field);
+      return true;
+    }
+
+    this.addError(field);
+    return false;
   }
 
   changeLocation = () => {
@@ -34,7 +52,7 @@ export default class Row extends Component {
     var section = Math.trunc(this.state.section * 1);
     var room = Math.trunc(this.state.room * 1);
 
-    if(section > 0 && room > 0) 
+    if (this.isValid(this.sectionInput) & this.isValid(this.roomInput))
       this.props.changeLocation(id, section, room);
 
     this.restState();
@@ -56,7 +74,7 @@ export default class Row extends Component {
                   className="form-control col-6"
                   type="text"
                   placeholder="Section"
-                  ref={elem => this.sectionInput = elem}
+                  ref={elem => (this.sectionInput = elem)}
                   value={this.setState.section}
                   onChange={this.updateSectionValue}
                 />
@@ -64,7 +82,7 @@ export default class Row extends Component {
                   className="form-control col-6"
                   type="text"
                   placeholder="Room"
-                  ref={elem => this.roomInput = elem}
+                  ref={elem => (this.roomInput = elem)}
                   value={this.setState.room}
                   onChange={this.updateRoomValue}
                 />

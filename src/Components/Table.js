@@ -45,7 +45,7 @@ export default class Table extends Component {
             element.location = `S:${section}-R:${room}`
           }
           return element;
-        })
+        })  
       });
   };
 
