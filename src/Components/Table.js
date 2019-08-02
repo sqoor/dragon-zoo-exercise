@@ -4,7 +4,7 @@ import "./Table.css";
 
 export default class Table extends Component {
   state = {
-    test: "",
+    t: "ten",
     tableData: [
       {
         id: 1,
@@ -37,14 +37,17 @@ export default class Table extends Component {
     ]
   };
 
-  changeLocation(id, section, room) {
-    // this.setState({
-    //   test: `S:${section}-R:${room}`
-    // });
-
-    // console.log("this", this);
-    // console.log("section", section, "room", room);
-  }
+  changeLocation = (id, section, room) => {
+    if(section && room)
+      this.setState({
+        tableData: this.state.tableData.map(element => {
+          if(element.id === id) {
+            element.location = `S:${section}-R:${room}`
+          }
+          return element;
+        })
+      });
+  };
 
   render() {
     return (
@@ -68,9 +71,6 @@ export default class Table extends Component {
                 changeLocation={this.changeLocation}
               />
             ))}
-
-            {/* {console.log(this.changeLocation)} */}
-            {/* <Row key={this.state.id} info={this.state.tableData} /> */}
           </tbody>
         </table>
       </>
